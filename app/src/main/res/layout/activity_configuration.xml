@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".activities.ConfigurationActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/grey"
+        android:padding="@dimen/_10sdp">
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:tint="@color/black"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/_15ssp"
+            android:textColor="@color/black"
+            android:paddingEnd="@dimen/_15sdp"
+            android:text="@string/configuration"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/border"
+        android:layout_height="@dimen/_1sdp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/_10sdp"
+        android:paddingStart="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_20sdp"
+        android:paddingTop="@dimen/_20sdp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15ssp"
+            android:text="@string/allow_location"/>
+
+        <Switch
+            android:id="@+id/sw"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:padding="@dimen/_10sdp"
+                android:gravity="center"
+                android:weightSum="1.0"
+                android:visibility="gone"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:text="@string/enter_username"/>
+
+                <EditText
+                    android:id="@+id/ed_username"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="0.8"
+                    android:layout_height="wrap_content"
+                    android:hint="xxxxxx"
+                    android:gravity="end"
+                    android:textSize="@dimen/_15ssp"
+                    android:background="@null"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_pn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:padding="@dimen/_10sdp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:weightSum="1.0"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:text="@string/enter_pn"/>
+
+                <EditText
+                    android:id="@+id/ed_pn"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="0.8"
+                    android:layout_height="wrap_content"
+                    android:hint="+xxxxxxxxxx"
+                    android:inputType="phone"
+                    android:textSize="@dimen/_15ssp"
+                    android:gravity="end"
+                    android:background="@null"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_rpn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:padding="@dimen/_10sdp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:weightSum="1.0"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:text="@string/re_enter_pn"/>
+
+                <EditText
+                    android:id="@+id/ed_rpn"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="0.8"
+                    android:layout_height="wrap_content"
+                    android:hint="+xxxxxxxxxx"
+                    android:textSize="@dimen/_15ssp"
+                    android:gravity="end"
+                    android:inputType="phone"
+                    android:background="@null"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:padding="@dimen/_10sdp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:weightSum="1.0"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:text="@string/enter_pin"/>
+
+                <EditText
+                    android:id="@+id/ed_pin"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="0.8"
+                    android:layout_height="wrap_content"
+                    android:hint="****"
+                    android:background="@null"
+                    android:maxLength="4"
+                    android:inputType="number"
+                    android:textSize="@dimen/_15ssp"
+                    android:gravity="end"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_rsp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:padding="@dimen/_10sdp"
+                android:visibility="gone"
+                android:gravity="center"
+                android:weightSum="1.0"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:text="@string/re_enter_pn"/>
+
+                <EditText
+                    android:id="@+id/ed_rpin"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="0.8"
+                    android:layout_height="wrap_content"
+                    android:hint="****"
+                    android:maxLength="4"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:background="@null"
+                    android:textSize="@dimen/_15ssp"
+                    android:gravity="end"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_first_friend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:padding="@dimen/_10sdp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:weightSum="1.0"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:text="@string/enter_first_pn"/>
+
+                <EditText
+                    android:id="@+id/ed_first_pn"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="0.8"
+                    android:layout_height="wrap_content"
+                    android:hint="+xxxxxxxxxx"
+                    android:textSize="@dimen/_15ssp"
+                    android:inputType="phone"
+                    android:gravity="end"
+                    android:background="@null"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_second_friend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:padding="@dimen/_10sdp"
+                android:gravity="center"
+                android:weightSum="1.0"
+                android:visibility="gone"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:text="@string/enter_second_pn"/>
+
+                <EditText
+                    android:id="@+id/ed_second_pn"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="+xxxxxxxxxx"
+                    android:textSize="@dimen/_15ssp"
+                    android:inputType="phone"
+                    android:gravity="end"
+                    android:background="@null"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_third_friend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:padding="@dimen/_10sdp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:text="@string/enter_third_pn"/>
+
+                <EditText
+                    android:id="@+id/ed_third_pn"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="+xxxxxxxxxx"
+                    android:textSize="@dimen/_15ssp"
+                    android:gravity="end"
+                    android:inputType="phone"
+                    android:background="@null"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_fourth_friend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:padding="@dimen/_10sdp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:text="@string/enter_fourth_pn"/>
+
+                <EditText
+                    android:id="@+id/ed_fourth_pn"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="+xxxxxxxxxx"
+                    android:textSize="@dimen/_15ssp"
+                    android:gravity="end"
+                    android:inputType="phone"
+                    android:background="@null"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/next_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/next"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/blue"
+                android:layout_margin="@dimen/_20sdp"
+                android:layout_gravity="end" />
+
+            <TextView
+                android:id="@+id/circleTextView"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:background="@drawable/circle_border"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:text="@string/hold"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

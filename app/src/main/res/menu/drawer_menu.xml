@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_configuration"
+        android:icon="@drawable/delete"
+        android:title="@string/configuration"/>
+    <item
+        android:id="@+id/nav_plans"
+        android:icon="@drawable/delete"
+        android:title="@string/pac_plans"/>
+    <item
+        android:id="@+id/nav_delete"
+        android:icon="@drawable/delete"
+        android:title="@string/delete"/>
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/delete"
+        android:title="@string/logout"/>
+</menu>

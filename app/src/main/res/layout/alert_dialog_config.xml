@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvAlertTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/alert"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tvAlertMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_12ssp"
+        android:gravity="center"
+        android:text="@string/enter_pin_alert"
+        android:paddingBottom="@dimen/_8sdp"/>
+
+    <EditText
+        android:id="@+id/edtPin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:hint="@string/pin"/>
+
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_30ssp"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_10sdp"
+        android:textStyle="bold"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="end"
+        android:paddingTop="16dp">
+
+        <Button
+            android:id="@+id/btOk"
+            android:layout_width="0dp"
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/blue"
+            android:layout_weight="1"
+            android:text="@string/ok"/>
+    </LinearLayout>
+
+</LinearLayout>

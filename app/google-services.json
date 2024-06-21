@@ -1,0 +1,101 @@
+{
+  "project_info": {
+    "project_number": "663430630406",
+    "firebase_url": "https://safe-5b750-default-rtdb.firebaseio.com",
+    "project_id": "safe-5b750",
+    "storage_bucket": "safe-5b750.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663430630406:android:575763c41bcb26c6e88787",
+        "android_client_info": {
+          "package_name": "com.example.besafe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663430630406-olp20q5fq07vmeg3pnioqt4bpmicp4qj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.besafe",
+            "certificate_hash": "36fe77a760bad5920b50be5a39b2eb9a86109c07"
+          }
+        },
+        {
+          "client_id": "663430630406-2jc78k8g7eq128ldm7u5ngg70vu0md1p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxNfnLyq5n67osq9YBHxk-DMEJi2MXfPs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663430630406-2jc78k8g7eq128ldm7u5ngg70vu0md1p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "663430630406-rgl1al4ocu8fbt86qjamn3umgi06mcnr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.Oxydy.Safe",
+                "app_store_id": "6502417642"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663430630406:android:8dfcd9785cb6e2bce88787",
+        "android_client_info": {
+          "package_name": "com.safe.besafe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663430630406-eskq363juc9fcb487j1detgh1v5gfrl0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.safe.besafe",
+            "certificate_hash": "36fe77a760bad5920b50be5a39b2eb9a86109c07"
+          }
+        },
+        {
+          "client_id": "663430630406-2jc78k8g7eq128ldm7u5ngg70vu0md1p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxNfnLyq5n67osq9YBHxk-DMEJi2MXfPs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663430630406-2jc78k8g7eq128ldm7u5ngg70vu0md1p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "663430630406-rgl1al4ocu8fbt86qjamn3umgi06mcnr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.Oxydy.Safe",
+                "app_store_id": "6502417642"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
