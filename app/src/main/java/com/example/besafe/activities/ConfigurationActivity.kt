@@ -45,6 +45,7 @@ class ConfigurationActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var user:User
     var fromLogin=false
+    var configDone=false
     var count=1
     lateinit var sharedPreferences:SharedPreferences
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -71,7 +72,15 @@ class ConfigurationActivity : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         initializeSwitch()
-        binding.back.setOnClickListener { finish() }
+        binding.back.setOnClickListener {
+            if (configDone){
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }else{
+                finish()
+            }
+        }
 
         if (!fromLogin){
             user=Utilities.getUserData()
@@ -99,35 +108,35 @@ class ConfigurationActivity : AppCompatActivity() {
 
             binding.nextButton.setOnClickListener {
                 if (binding.edUsername.text.isEmpty()){
-                    Utilities.alertDialog(this,"Please enter user name")
+                    Utilities.alertDialog(this,getString(R.string.p_username),getString(R.string.alert),getString(R.string.ok))
                     return@setOnClickListener
                 }
                 if (binding.edPn.text.isEmpty()){
-                    Utilities.alertDialog(this,"Please enter phone number")
+                    Utilities.alertDialog(this,getString(R.string.p_pn),getString(R.string.alert),getString(R.string.ok))
                     return@setOnClickListener
                 }
                 if (binding.edRpn.text.isEmpty()){
-                    Utilities.alertDialog(this,"Please re-enter phone number")
+                    Utilities.alertDialog(this,getString(R.string.p_rpn),getString(R.string.alert),getString(R.string.ok))
                     return@setOnClickListener
                 }
                 if (!binding.edRpn.text.toString().equals(binding.edPn.text.toString())){
-                    Utilities.alertDialog(this,"Phone number and re-phone number should be same.")
+                    Utilities.alertDialog(this,getString(R.string.s_pn),getString(R.string.alert),getString(R.string.ok))
                     return@setOnClickListener
                 }
                 if (binding.edPin.text.isNotEmpty() || binding.edRpin.text.isNotEmpty()){
-                    if (!binding.edRpn.text.toString().equals(binding.edPn.text.toString())){
-                        Utilities.alertDialog(this,"Pin and re-pin should be same.")
+                    if (!binding.edPin.text.toString().equals(binding.edRpin.text.toString())){
+                        Utilities.alertDialog(this,getString(R.string.pin_same),getString(R.string.alert),getString(R.string.ok))
                         return@setOnClickListener
                     }
                 }
 
                 if (binding.edFirstPn.text.isEmpty()){
-                    Utilities.alertDialog(this,"Please enter first friend phone number")
+                    Utilities.alertDialog(this,getString(R.string.please_first),getString(R.string.alert),getString(R.string.ok))
                     return@setOnClickListener
                 }
 
                 if (binding.edSecondPn.text.isEmpty()){
-                    Utilities.alertDialog(this,"Please enter second friend phone number")
+                    Utilities.alertDialog(this,getString(R.string.please_second),getString(R.string.alert),getString(R.string.ok))
                     return@setOnClickListener
                 }
                 updateUserData2()
@@ -144,7 +153,7 @@ class ConfigurationActivity : AppCompatActivity() {
 
                     if (binding.edUsername.text.isEmpty()){
                         count=2
-                        Utilities.alertDialog(this@ConfigurationActivity,"Please enter user name")
+                        Utilities.alertDialog(this@ConfigurationActivity,getString(R.string.p_username),getString(R.string.alert),getString(R.string.ok))
                     }else{
                         binding.layoutPn.visibility= View.VISIBLE
                         val anim= AnimationUtils.loadAnimation(this,R.anim.slide_in)
@@ -155,7 +164,7 @@ class ConfigurationActivity : AppCompatActivity() {
                     val v=binding.edPn.text.toString()
                     if(!v.startsWith("+")){
                         count=3
-                        Utilities.alertDialog(this@ConfigurationActivity,"Number Should be valid with +(Country Code)(Number). Example +12345678 format")
+                        Utilities.alertDialog(this@ConfigurationActivity,getString(R.string.number_valid),getString(R.string.alert),getString(R.string.ok))
                     }else{
                         binding.layoutRpn.visibility= View.VISIBLE
                         val anim= AnimationUtils.loadAnimation(this,R.anim.slide_in)
@@ -166,10 +175,10 @@ class ConfigurationActivity : AppCompatActivity() {
                     val v=binding.edRpn.text.toString()
                     if(!v.startsWith("+")){
                         count=4
-                        Utilities.alertDialog(this@ConfigurationActivity,"Number Should be valid with +(Country Code)(Number). Example +12345678 format")
+                        Utilities.alertDialog(this@ConfigurationActivity,getString(R.string.number_valid),getString(R.string.alert),getString(R.string.ok))
                     }else if (!v.equals(binding.edPn.text.toString())){
                         count=4
-                        Utilities.alertDialog(this@ConfigurationActivity,"Phone number should be same")
+                        Utilities.alertDialog(this@ConfigurationActivity,getString(R.string.phone_same),getString(R.string.alert),getString(R.string.ok))
                     }else{
                         binding.layoutSp.visibility= View.VISIBLE
                         val anim= AnimationUtils.loadAnimation(this,R.anim.slide_in)
@@ -180,7 +189,7 @@ class ConfigurationActivity : AppCompatActivity() {
                     val v=binding.edPin.text.toString()
                     if (v.length==0){
                         count=5
-                        Utilities.alertDialog(this@ConfigurationActivity,"Please enter Safety Pin")
+                        Utilities.alertDialog(this@ConfigurationActivity,getString(R.string.please_pin),getString(R.string.alert),getString(R.string.ok))
                     }else{
                         binding.layoutRsp.visibility= View.VISIBLE
                         val anim= AnimationUtils.loadAnimation(this,R.anim.slide_in)
@@ -190,7 +199,7 @@ class ConfigurationActivity : AppCompatActivity() {
                     val v=binding.edPin.text.toString()
                     if (!v.equals(binding.edRpin.text.toString())){
                         count=6
-                        Utilities.alertDialog(this@ConfigurationActivity,"Safety Pin should be same")
+                        Utilities.alertDialog(this@ConfigurationActivity,getString(R.string.pin_same),getString(R.string.alert),getString(R.string.ok))
                     }else{
                         binding.layoutFirstFriend.visibility= View.VISIBLE
                         val anim= AnimationUtils.loadAnimation(this,R.anim.slide_in)
@@ -201,7 +210,7 @@ class ConfigurationActivity : AppCompatActivity() {
                 }else if (count==8){
                     if (binding.edFirstPn.text.toString().isEmpty()){
                         count=7
-                        Utilities.alertDialog(this@ConfigurationActivity,"Please enter First Friend Phone Number")
+                        Utilities.alertDialog(this@ConfigurationActivity,getString(R.string.please_first),getString(R.string.alert),getString(R.string.ok))
                     }else{
                         binding.layoutSecondFriend.visibility= View.VISIBLE
                         val anim= AnimationUtils.loadAnimation(this,R.anim.slide_in)
@@ -210,7 +219,7 @@ class ConfigurationActivity : AppCompatActivity() {
                 }else if (count==9){
                     if (binding.edSecondPn.text.toString().isEmpty()){
                         count=8
-                        Utilities.alertDialog(this@ConfigurationActivity,"Please enter Second Friend Phone Number")
+                        Utilities.alertDialog(this@ConfigurationActivity,getString(R.string.please_second),getString(R.string.alert),getString(R.string.ok))
                     }else{
                         binding.layoutThirdFriend.visibility= View.VISIBLE
                         val anim= AnimationUtils.loadAnimation(this,R.anim.slide_in)
@@ -249,7 +258,7 @@ class ConfigurationActivity : AppCompatActivity() {
                 editor.putBoolean("allow_location", false)
                 editor.apply()
                 if (!checkLocationPermission()){
-                    Toast.makeText(this, "Please allow location Permission from settings", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.allow_loc), Toast.LENGTH_SHORT).show();
                 }
             }
         })
@@ -311,7 +320,8 @@ class ConfigurationActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Utilities.getUserDB(auth.currentUser!!,this@ConfigurationActivity,database)
-                    Toast.makeText(this, "User data updated successfully", Toast.LENGTH_SHORT).show()
+                    configDone=true
+                    Toast.makeText(this, getString(R.string.data_update), Toast.LENGTH_SHORT).show()
                     showWelcomeDialog()
                     binding.circleTextView.visibility=View.VISIBLE
                 } else {
@@ -340,7 +350,7 @@ class ConfigurationActivity : AppCompatActivity() {
         database.child("user_test").child(userId).updateChildren(userUpdates)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "User data updated successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.data_update), Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, "Failed to update user data: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
@@ -394,8 +404,8 @@ class ConfigurationActivity : AppCompatActivity() {
         alertDialog.setCancelable(true)
 
         // Get references to the views in the custom layout
-        val btnSubscribe: Button = dialogView.findViewById(R.id.subscribe)
-        val btnOk: Button = dialogView.findViewById(R.id.ok)
+        val btnSubscribe: TextView = dialogView.findViewById(R.id.subscribe)
+        val btnOk: TextView = dialogView.findViewById(R.id.ok)
 
         // Set up the buttons
         btnOk.setOnClickListener {
@@ -546,7 +556,7 @@ class ConfigurationActivity : AppCompatActivity() {
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-                    Toast.makeText(this@ConfigurationActivity, "Message sent successfully!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ConfigurationActivity, getString(R.string.mess_sent), Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this@ConfigurationActivity, "Failed to send message. Response code: ${response.code()}", Toast.LENGTH_SHORT).show()
                 }
@@ -560,5 +570,16 @@ class ConfigurationActivity : AppCompatActivity() {
 
     private fun sendMessageWithEmptyLocation() {
         sendMessage("")
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (configDone){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }else{
+            finish()
+        }
     }
 }

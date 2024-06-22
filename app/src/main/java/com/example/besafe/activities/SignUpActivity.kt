@@ -47,23 +47,23 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun verify() :Boolean{
         if (binding.name.text.toString().isEmpty()){
-            Utilities.alertDialog(this,"Please enter your name.")
+            Utilities.alertDialog(this,getString(R.string.p_name),getString(R.string.alert),getString(R.string.ok))
             return false
         }
         if (binding.email.text.toString().isEmpty()){
-            Utilities.alertDialog(this,"Please enter your email.")
+            Utilities.alertDialog(this,getString(R.string.p_email),getString(R.string.alert),getString(R.string.ok))
             return false
         }
         if (binding.password.text.toString().isEmpty()){
-            Utilities.alertDialog(this,"Please enter your password.")
+            Utilities.alertDialog(this,getString(R.string.p_pass),getString(R.string.alert),getString(R.string.ok))
             return false
         }
         if (binding.confirmPassword.text.toString().isEmpty()){
-            Utilities.alertDialog(this,"Please enter your confirm password.")
+            Utilities.alertDialog(this,getString(R.string.p_confirm_pass),getString(R.string.alert),getString(R.string.ok))
             return false
         }
         if (!binding.password.text.toString().equals(binding.confirmPassword.text.toString())){
-            Utilities.alertDialog(this,"Password and Confirm Password should be same.")
+            Utilities.alertDialog(this,getString(R.string.same_password),getString(R.string.alert),getString(R.string.ok))
             return false
         }
 
@@ -75,7 +75,7 @@ class SignUpActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Registration successful
-                    Utilities.showToast("Account Created Successfully",this)
+                    Utilities.showToast(getString(R.string.acc_create),this)
                     val user = auth.currentUser
                     user?.let {
                         val userId = it.uid
@@ -87,7 +87,7 @@ class SignUpActivity : AppCompatActivity() {
                 } else {
                     // If registration fails, display a message to the user.
                     task.exception?.message?.let {
-                        Utilities.alertDialog(this,it)
+                        Utilities.alertDialog(this,it,getString(R.string.alert),getString(R.string.ok))
                     }
                 }
             }

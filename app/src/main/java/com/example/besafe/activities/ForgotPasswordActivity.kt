@@ -30,7 +30,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
             if (email.isNotEmpty()) {
                 sendPasswordResetEmail(email)
             } else {
-                Toast.makeText(this, "Please enter your email address", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.p_email), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -39,7 +39,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         auth.sendPasswordResetEmail(email)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "Password reset email sent", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.re_email), Toast.LENGTH_SHORT).show()
                     finish()
                 } else {
                     Toast.makeText(this, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
