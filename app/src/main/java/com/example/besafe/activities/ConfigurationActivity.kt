@@ -394,8 +394,8 @@ class ConfigurationActivity : AppCompatActivity() {
         alertDialog.setCancelable(true)
 
         // Get references to the views in the custom layout
-        val btnSubscribe: Button = dialogView.findViewById(R.id.subscribe)
-        val btnOk: Button = dialogView.findViewById(R.id.ok)
+        val btnSubscribe: TextView = dialogView.findViewById(R.id.subscribe)
+        val btnOk: TextView = dialogView.findViewById(R.id.ok)
 
         // Set up the buttons
         btnOk.setOnClickListener {
