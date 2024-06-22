@@ -45,6 +45,7 @@ class ConfigurationActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var user:User
     var fromLogin=false
+    var configDone=false
     var count=1
     lateinit var sharedPreferences:SharedPreferences
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -71,7 +72,15 @@ class ConfigurationActivity : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         initializeSwitch()
-        binding.back.setOnClickListener { finish() }
+        binding.back.setOnClickListener {
+            if (configDone){
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }else{
+                finish()
+            }
+        }
 
         if (!fromLogin){
             user=Utilities.getUserData()
@@ -311,6 +320,7 @@ class ConfigurationActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Utilities.getUserDB(auth.currentUser!!,this@ConfigurationActivity,database)
+                    configDone=true
                     Toast.makeText(this, getString(R.string.data_update), Toast.LENGTH_SHORT).show()
                     showWelcomeDialog()
                     binding.circleTextView.visibility=View.VISIBLE
@@ -560,5 +570,16 @@ class ConfigurationActivity : AppCompatActivity() {
 
     private fun sendMessageWithEmptyLocation() {
         sendMessage("")
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (configDone){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }else{
+            finish()
+        }
     }
 }

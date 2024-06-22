@@ -212,7 +212,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkUserIdExists(user: FirebaseUser) {
-        database.child(user.uid).addListenerForSingleValueEvent(object : ValueEventListener {
+        database.child("user_test").child(user.uid).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     // User ID exists
