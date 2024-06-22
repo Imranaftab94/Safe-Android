@@ -249,7 +249,7 @@ class MainActivity : AppCompatActivity() {
                     // Delete user authentication record
                     user.delete().addOnCompleteListener { deleteTask ->
                         if (deleteTask.isSuccessful) {
-                            Toast.makeText(this, "Account deleted successfully", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, getString(R.string.acc_delete), Toast.LENGTH_SHORT).show()
                             val intent = Intent(this, LoginActivity::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(intent)
@@ -278,7 +278,7 @@ class MainActivity : AppCompatActivity() {
                     titleTextView.setText(userData?.name ?:"")
                 } else {
 //                    Toast.makeText(this@MainActivity, "User data not found in user_test table", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(this@MainActivity, "Some error occured", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MainActivity, getString(R.string.some_error), Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -337,7 +337,7 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
                     setViews()
-                    Toast.makeText(this@MainActivity, "Message sent successfully!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MainActivity, getString(R.string.mess_sent), Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this@MainActivity, "Failed to send message. Response code: ${response.code()}", Toast.LENGTH_SHORT).show()
                 }
@@ -418,14 +418,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun promptEnableLocation() {
         MaterialAlertDialogBuilder(this)
-            .setTitle("Enable Location")
-            .setMessage("This app needs location services to be enabled. Please turn on location services.")
-            .setPositiveButton("OK") { dialog, _ ->
+            .setTitle(getString(R.string.enable_loc))
+            .setMessage(getString(R.string.loc_des))
+            .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
                 dialog.dismiss()
                 val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                 startActivity(intent)
             }
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
 //                Toast.makeText(this, "Location services are required to use this app", Toast.LENGTH_LONG).show()
             }

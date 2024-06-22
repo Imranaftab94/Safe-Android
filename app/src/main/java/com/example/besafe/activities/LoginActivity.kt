@@ -79,7 +79,7 @@ class LoginActivity : AppCompatActivity() {
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 loginUser(email, password)
             } else {
-                Utilities.showToast("Please enter email and password",this)
+                Utilities.showToast(getString(R.string.enter_mail_pass),this)
             }
         }
 
@@ -93,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success
-                    Utilities.showToast("Login successfull",this)
+                    Utilities.showToast(getString(R.string.login_succ),this)
                     // Navigate to another activity or do something
                     val user = auth.currentUser
                     user?.let { checkUserInUserTest(it) }
@@ -118,7 +118,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 } else {
 //                    Toast.makeText(this@LoginActivity, "User data not found in user_test table", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(this@LoginActivity, "Some error occured", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, getString(R.string.some_error), Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -158,7 +158,7 @@ class LoginActivity : AppCompatActivity() {
                 firebaseAuthWithGoogle(account)
             } catch (e: ApiException) {
                 // Google Sign-In failed, update UI appropriately
-                Utilities.showToast("Some error occured",this)
+                Utilities.showToast(getString(R.string.some_error),this)
                 // ...
             }
         }
@@ -177,7 +177,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 } else {
                     // If sign in fails, display a message to the user.
-                    Utilities.showToast("Some error occured",this)
+                    Utilities.showToast(getString(R.string.some_error),this)
                     // Update UI
                 }
             }
@@ -217,11 +217,11 @@ class LoginActivity : AppCompatActivity() {
                 if (snapshot.exists()) {
                     // User ID exists
                     user.let { checkUserInUserTest(it) }
-                    Toast.makeText(this@LoginActivity, "User ID exists", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@LoginActivity, "User ID exists", Toast.LENGTH_SHORT).show()
                 } else {
                     storeUserData(user.uid,user.email.toString(),user.displayName.toString())
                     // User ID does not exist
-                    Toast.makeText(this@LoginActivity, "User ID does not exist", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@LoginActivity, "User ID does not exist", Toast.LENGTH_SHORT).show()
                 }
             }
 

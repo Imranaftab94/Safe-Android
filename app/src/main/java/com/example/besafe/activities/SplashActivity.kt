@@ -59,7 +59,7 @@ class SplashActivity : AppCompatActivity() {
                     }
                 } else {
 //                    Toast.makeText(this@LoginActivity, "User data not found in user_test table", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(this@SplashActivity, "Some error occured", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SplashActivity, getString(R.string.some_error), Toast.LENGTH_SHORT).show()
                 }
             }
 

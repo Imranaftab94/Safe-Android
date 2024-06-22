@@ -14,14 +14,14 @@ object Utilities {
 
     lateinit var user: User
 
-    fun alertDialog(context: Context, msg:String){
+    fun alertDialog(context: Context, msg:String,alert:String,ok:String){
         val builder1 = AlertDialog.Builder(context)
-        builder1.setTitle("Alert!")
+        builder1.setTitle(alert)
         builder1.setMessage(msg)
         builder1.setCancelable(false)
 
         builder1.setPositiveButton(
-            "OK"
+            ok
         ) { dialog, id -> dialog.cancel() }
 
         val alert11 = builder1.create()
