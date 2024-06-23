@@ -9,7 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.billingclient.api.*
 import com.android.billingclient.api.BillingFlowParams.ProductDetailsParams
 import com.example.besafe.activities.Constants.Companion.subscriptionId
+import com.example.besafe.activities.Utilities.setSubscriptionStatus
 import com.example.besafe.databinding.ActivitySubscriptionBinding
+import com.google.gson.Gson
 
 class SubscriptionActivity : AppCompatActivity() {
 
@@ -21,6 +23,9 @@ class SubscriptionActivity : AppCompatActivity() {
         binding= ActivitySubscriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        ///////// This method is for getting subscription status, move this whole code to where you need this (bitch) //////
+        getPurchaseDetail()
+
         binding.back.setOnClickListener {
             finish()
         }
@@ -31,7 +36,7 @@ class SubscriptionActivity : AppCompatActivity() {
                     .enablePendingPurchases()
                     .setListener(purchaseUpdateListener)
                     .build()
-                billingClient?.startConnection(object : BillingClientStateListener {
+                billingClient?.startConnection(object: BillingClientStateListener {
                     override fun onBillingSetupFinished(billingResult: BillingResult) {
                         if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                             queryAvailableProducts(subscriptionId)
@@ -41,7 +46,6 @@ class SubscriptionActivity : AppCompatActivity() {
                                 "ZKB1989",
                                 "Billing setup failed" + billingResult.debugMessage + billingResult
                             )
-
                             runOnUiThread {
                                 Toast.makeText(
                                     this@SubscriptionActivity,
@@ -120,7 +124,8 @@ class SubscriptionActivity : AppCompatActivity() {
                                     )?.responseCode
                                 }
                             }
-                        } catch (ex: Exception) {
+                        }
+                        catch (ex: Exception) {
                             runOnUiThread {
                                 Toast.makeText(
                                     this@SubscriptionActivity,
@@ -231,6 +236,103 @@ class SubscriptionActivity : AppCompatActivity() {
             } else {
                 Log.d("ZKB1989", "Already Acknowledged")
             }
+        }
+    }
+
+    //////////////////////////////////////////////////////
+    fun getPurchaseDetail() {
+        if (billingClient == null || !billingClient!!.isReady) {
+            billingClient = BillingClient.newBuilder(this)
+                .enablePendingPurchases()
+                .setListener(purchaseUpdateListener)
+                .build()
+            billingClient!!.startConnection(object : BillingClientStateListener {
+                override fun onBillingSetupFinished(billingResult: BillingResult) {
+                    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                        queryPurchasesDetail()
+                    } else {
+                        Log.e(
+                            "ZKB1989",
+                            "Billing setup failed" + billingResult.debugMessage + billingResult
+                        )
+                        runOnUiThread {
+                            Toast.makeText(
+                                this@SubscriptionActivity,
+                                billingResult.toString(),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        billingClient!!.connectionState
+                    }
+                }
+                override fun onBillingServiceDisconnected() {
+                    runOnUiThread {
+                        Toast.makeText(
+                            this@SubscriptionActivity,
+                            "Billing Disconnected",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            })
+        }
+        else {
+            queryPurchasesDetail()
+        }
+    }
+
+    private fun queryPurchasesDetail() {
+        billingClient?.queryPurchasesAsync(
+            QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.SUBS).build()) { billingResult: BillingResult, purchases: List<Purchase?> ->
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                if (purchases.isNotEmpty()) {
+                    handlePurchaseDetails(purchases)
+                }
+                else {
+                    setSubscriptionStatus(false, null)
+                }
+            } else {
+                setSubscriptionStatus(false, null)
+                Log.e(
+                    "Billing",
+                    "Error querying purchases: " + billingResult.debugMessage
+                )
+            }
+        }
+    }
+
+    private fun handlePurchaseDetails(purchases: List<Purchase?>) {
+        if (purchases.isNotEmpty()) {
+            for (purchase in purchases) {
+                handlePurchases(purchase)
+            }
+        } else {
+            Log.d("Subscription Details", "No Active Subscription were found")
+            setSubscriptionStatus(false, null)
+        }
+    }
+
+    private fun handlePurchases(purchase: Purchase?) {
+        if (purchase?.purchaseState == Purchase.PurchaseState.PURCHASED) {
+            val response: QueryPurchaseResponse = Gson().fromJson(
+                purchase.originalJson,
+                QueryPurchaseResponse::class.java
+            )
+            if (response.productId.equals(subscriptionId)) {
+                if(response.autoRenewing == true) {
+                    setSubscriptionStatus(true, response)
+                }
+                else {
+                    setSubscriptionStatus(false, response)
+                }
+            }
+            else {
+                setSubscriptionStatus(false, response)
+            }
+            Log.d("Subscription Details", purchase.originalJson)
+        } else {
+            setSubscriptionStatus(false, null)
+            purchase?.let { Log.d("Subscription Details (${purchase.purchaseState})", it.originalJson) }
         }
     }
 }

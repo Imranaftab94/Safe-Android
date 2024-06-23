@@ -3,6 +3,7 @@ package com.example.besafe.activities
 import android.content.Context
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.example.besafe.activities.Constants.Companion.subStatus
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -50,13 +51,16 @@ object Utilities {
                     userData?.let { setUserData(it) }
                 } else {
 //                    Toast.makeText(this@MainActivity, "User data not found in user_test table", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(context, "Some error occured", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Some error occurred", Toast.LENGTH_SHORT).show()
                 }
             }
-
             override fun onCancelled(databaseError: DatabaseError) {
                 Toast.makeText(context, "Database error: ${databaseError.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    fun setSubscriptionStatus(isSubscribed: Boolean = false, data: QueryPurchaseResponse?) {
+        subStatus = isSubscribed
     }
 }
