@@ -60,7 +60,7 @@ object Utilities {
         })
     }
 
-    fun setSubscriptionStatus(isSubscribed: Boolean = false, data: QueryPurchaseResponse?,database: DatabaseReference,userId:String) {
+    fun setSubscriptionStatus(isSubscribed: Boolean = false, data: QueryPurchaseResponse?, database: DatabaseReference, userId:String) {
         val userRef = database.child("user_test").child(userId)
         val updates = hashMapOf<String, Any>("isSubscribe" to isSubscribed)
         userRef.updateChildren(updates).addOnCompleteListener { task ->

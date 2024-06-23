@@ -225,6 +225,7 @@ class SubscriptionActivity: AppCompatActivity() {
                 ) { billingResult: BillingResult ->
                     if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                         Log.e("ZKB1989", "ConsumeResponseListener Response Code:  " + billingResult.responseCode)
+                        auth.currentUser?.let { setSubscriptionStatus(true, null, database, it.uid) }
                     } else {
                         runOnUiThread {
                             Toast.makeText(
@@ -241,6 +242,7 @@ class SubscriptionActivity: AppCompatActivity() {
                 }
             } else {
                 Log.d("ZKB1989", "Already Acknowledged")
+                auth.currentUser?.let { setSubscriptionStatus(true, null, database, it.uid) }
             }
         }
     }
