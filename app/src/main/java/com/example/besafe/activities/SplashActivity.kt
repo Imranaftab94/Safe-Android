@@ -319,4 +319,9 @@ class SplashActivity : AppCompatActivity() {
             purchase?.let { Log.d("Subscription Details (${purchase.purchaseState})", it.originalJson) }
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        billingClient?.endConnection()
+    }
 }
