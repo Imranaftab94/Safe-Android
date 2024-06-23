@@ -55,7 +55,7 @@
     <string name="monthly_pac">Pacchetto mensile</string>
     <string name="price">$3,00 /mese</string>
     <string name="text_o">Altrimenti inviamo un messaggio di sicurezza ai tuoi contatti.</string>
-    <string name="release_des">SE RILASCI IL PULSANTE, IN 10 SECONDI, UN SMS VERRÀ INVIATO AI TUOI CONTATTI DI EMERGENZA CON LA TUA POSIZIONE</string>
+    <string name="release_des">SE RILASCI IL PULSANTE, IN 10 SECONDI,VERRA’ INVIATO UN SMS AI TUOI CONTATTI DI EMERGENZA CON LA TUA POSIZIONE</string>
     <string name="hold">TIENI\nPREMUTO\nPER\nATTIVARE</string>
     <string name="enter_first_pn">Inserisci il numero di telefono del tuo primo amico</string>
     <string name="enter_second_pn">Inserisci il numero di telefono del tuo secondo amico</string>

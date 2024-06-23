@@ -55,8 +55,8 @@
     <string name="monthly_pac">Pacote mensal</string>
     <string name="price">$3.00 /mês</string>
     <string name="text_o">Caso contrário, enviamos uma mensagem de segurança para seus contatos.</string>
-    <string name="release_des">SE VOCÊ SOLTAR O BOTÃO, EM 10 SEGUNDOS, UMA MENSAGEM SMS SERÁ ENVIADA PARA SEUS CONTATOS DE EMERGÊNCIA COM SUA LOCALIZAÇÃO</string>
-    <string name="hold">MANTENHA\nPARA\nATIVAR</string>
+    <string name="release_des">SE VOCÊ LIBERAR O BOTÃO, EM 10 SEGUNDOS,UM SMS SERÁ ENVIADO PARA SUA EMERGÊNCIA CONTACTOS COM A SUA LOCALIZAÇÃO</string>
+    <string name="hold">SEGURE\nPARA\nATIVAR</string>
     <string name="enter_first_pn">Insira o número de telefone\ndo seu primeiro amigo</string>
     <string name="enter_second_pn">Insira o número de telefone\ndo seu segundo amigo</string>
     <string name="enter_third_pn">Insira o número de telefone\ndo seu terceiro amigo (opcional)</string>

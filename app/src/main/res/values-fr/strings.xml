@@ -55,8 +55,8 @@
     <string name="monthly_pac">Forfait mensuel</string>
     <string name="price">3,00 $ /mois</string>
     <string name="text_o">Sinon, nous envoyons un message de sécurité à vos contacts.</string>
-    <string name="release_des">SI VOUS RELÂCHEZ LE BOUTON, DANS 10 SECONDES, UN SMS SERA ENVOYÉ À VOS CONTACTS D\'URGENCE AVEC VOTRE LOCALISATION</string>
-    <string name="hold">MAINTENIR\nPOUR\nACTIVER</string>
+    <string name="release_des">SI VOUS LACHEZ LE BOUTON, DANS 10 SECONDES,UN SMS SERA ENVOYÉ À VOTRE URGENCE CONTACTS AVEC VOTRE LOCALISATION</string>
+    <string name="hold">MAINTENEZ\nPOUR\nACTIVER</string>
     <string name="enter_first_pn">Entrez le numéro de téléphone de votre premier ami</string>
     <string name="enter_second_pn">Entrez le numéro de téléphone de votre deuxième ami</string>
     <string name="enter_third_pn">Entrez le numéro de téléphone de votre troisième ami (optionnel)</string>
