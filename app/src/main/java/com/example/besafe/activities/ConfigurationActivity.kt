@@ -59,10 +59,12 @@ class ConfigurationActivity : AppCompatActivity() {
         binding= ActivityConfigurationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance().reference
+        auth.currentUser?.let { Utilities.checkTrialPeriod(database, it.uid) }
+        auth.currentUser?.let { Utilities.checkSubscription(database, it.uid) }
         sharedPreferences = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        // Initialize Firebase Database
-        database = FirebaseDatabase.getInstance().reference
+
         fromLogin= intent.getBooleanExtra("fromLogin",false)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -73,13 +75,7 @@ class ConfigurationActivity : AppCompatActivity() {
 
         initializeSwitch()
         binding.back.setOnClickListener {
-            if (configDone){
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            }else{
-                finish()
-            }
+            finish()
         }
 
         if (!fromLogin){
@@ -95,8 +91,6 @@ class ConfigurationActivity : AppCompatActivity() {
             binding.layoutFourthFriend.visibility=View.VISIBLE
             binding.circleTextView.visibility=View.VISIBLE
             binding.nextButton.text=getString(R.string.confirm)
-            auth.currentUser?.let { Utilities.checkTrialPeriod(database, it.uid) }
-            auth.currentUser?.let { Utilities.checkSubscription(database, it.uid) }
             showCustomAlertDialog()
 
             binding.edUsername.setText(user.name)
@@ -355,6 +349,7 @@ class ConfigurationActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, getString(R.string.data_update), Toast.LENGTH_SHORT).show()
+                    finish()
                 } else {
                     Toast.makeText(this, "Failed to update user data: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
@@ -471,6 +466,7 @@ class ConfigurationActivity : AppCompatActivity() {
                 binding.circleTextView.setTextColor(Color.parseColor("#000000"));
                 val drawable = binding.circleTextView.background as GradientDrawable
                 drawable.setColor(ContextCompat.getColor(this@ConfigurationActivity, android.R.color.white))
+                alertDialogMessage(this@ConfigurationActivity,"Test Alert Message Cancelled Successfully")
                 alertDialog.dismiss()
             } else {
                 etPin.error = getString(R.string.invalid_pin)
@@ -479,6 +475,30 @@ class ConfigurationActivity : AppCompatActivity() {
 
         // Show the dialog
         alertDialog.show()
+    }
+
+    fun alertDialogMessage(context: Context, msg:String){
+        val builder1 = AlertDialog.Builder(context)
+        builder1.setTitle(getString(R.string.alert))
+        builder1.setMessage(msg)
+        builder1.setCancelable(false)
+
+        builder1.setPositiveButton(
+            getString(R.string.ok)
+        ) { dialog, id ->
+            if (fromLogin){
+                startActivity(Intent(this@ConfigurationActivity,MainActivity::class.java))
+                dialog.cancel()
+                finish()
+            }else{
+                dialog.cancel()
+                finish()
+            }
+
+        }
+
+        val alert11 = builder1.create()
+        alert11.show()
     }
 
     private fun validatePin(pin: String): Boolean {
@@ -563,12 +583,13 @@ class ConfigurationActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     Toast.makeText(this@ConfigurationActivity, getString(R.string.mess_sent), Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this@ConfigurationActivity, "Failed to send message. Response code: ${response.code()}", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@ConfigurationActivity, "Failed to send message. Response code: ${response.code()}", Toast.LENGTH_SHORT).show()
                 }
+                finish()
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Toast.makeText(this@ConfigurationActivity, "Failed to send message. Error: ${t.message}", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@ConfigurationActivity, "Failed to send message. Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -607,12 +628,6 @@ class ConfigurationActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        if (configDone){
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }else{
-            finish()
-        }
+        finish()
     }
 }
