@@ -72,10 +72,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference
-        sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
-        allowLocation = sharedPreferences.getBoolean("allow_location",false)
         auth.currentUser?.let { Utilities.checkTrialPeriod(database, it.uid) }
         auth.currentUser?.let { Utilities.checkSubscription(database, it.uid) }
+        sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
+        allowLocation = sharedPreferences.getBoolean("allow_location",false)
         setViews()
         val user = auth.currentUser
         user?.let { getUserData(it) }
@@ -225,6 +225,7 @@ class MainActivity : AppCompatActivity() {
                 // Timer finished
                 binding.count.text = "0"
                 binding.circleTextView.isEnabled=true
+                setViews()
                 getLocationAndSendMessage()
             }
         }
@@ -234,6 +235,8 @@ class MainActivity : AppCompatActivity() {
     private fun logoutUser() {
         auth.signOut()
         googleSignInClient.signOut()
+        Constants.freeTrial=true
+        Constants.subStatus=false
         val sharedPref = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putBoolean("remember_me", false)
@@ -343,15 +346,15 @@ class MainActivity : AppCompatActivity() {
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-                    setViews()
                     Toast.makeText(this@MainActivity, getString(R.string.mess_sent), Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this@MainActivity, "Failed to send message. Response code: ${response.code()}", Toast.LENGTH_SHORT).show()
+                }
+                else {
+//                    Toast.makeText(this@MainActivity, "Failed to send message. Response code: ${response.code()}", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "Failed to send message. Error: ${t.message}", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@MainActivity, "Failed to send message. Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }

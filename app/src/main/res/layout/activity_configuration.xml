@@ -211,7 +211,7 @@
                     android:layout_weight="0.2"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13ssp"
-                    android:text="@string/re_enter_pn"/>
+                    android:text="@string/re_enter_pin"/>
 
                 <EditText
                     android:id="@+id/ed_rpin"
