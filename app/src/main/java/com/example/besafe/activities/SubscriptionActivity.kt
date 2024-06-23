@@ -16,7 +16,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 
-class SubscriptionActivity : AppCompatActivity() {
+class SubscriptionActivity: AppCompatActivity() {
 
     private var billingClient: BillingClient? = null
     lateinit var binding: ActivitySubscriptionBinding
@@ -116,7 +116,7 @@ class SubscriptionActivity : AppCompatActivity() {
                                                 .setProductDetails(productDetailsList[i])
                                                 .setOfferToken(
                                                     productDetailsList[i]
-                                                        .subscriptionOfferDetails!![1]
+                                                        .subscriptionOfferDetails!![0]
                                                         .offerToken
                                                 ).build()
                                         )
