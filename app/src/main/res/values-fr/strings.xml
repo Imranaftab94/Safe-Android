@@ -84,6 +84,7 @@
     <string name="policy">En utilisant le service SAFE, vous acceptez la <u>Politique</u> et les <u>Conditions d\'utilisation.</u></string>
     <string name="navigation_drawer_open">Ouvrir le tiroir de navigation</string>
     <string name="navigation_drawer_close">Fermer le tiroir de navigation</string>
+    <string name="not_subs">Votre abonnement n\'est pas actif. veuillez vérifier l\'état de votre abonnement pour continuer à accéder aux fonctionnalités premium.</string>
     <string name="welcome_text">Bienvenue ! Votre essai gratuit d\'une semaine de notre service d\'alerte BeSafe est actif. Découvrez toutes les fonctionnalités premium, y compris l\'envoi d\'alertes de sécurité avec vos coordonnées de localisation à vos contacts d\'urgence. Après l\'essai, continuez à profiter d\'un accès ininterrompu avec notre plan forfaitaire mensuel, un abonnement mensuel de 3,00 $, qui se renouvelle automatiquement chaque mois.</string>
     <string name="default_web_client_id">663430630406-2jc78k8g7eq128ldm7u5ngg70vu0md1p.apps.googleusercontent.com</string>
 </resources>

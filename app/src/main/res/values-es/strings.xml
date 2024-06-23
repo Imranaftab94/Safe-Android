@@ -84,6 +84,7 @@
     <string name="policy">Al usar el servicio SAFE aceptas la <u>Política</u> y los <u>Términos de uso.</u></string>
     <string name="navigation_drawer_open">Abrir el cajón de navegación</string>
     <string name="navigation_drawer_close">Cerrar el cajón de navegación</string>
+    <string name="not_subs">Tu suscripción no está activa. verifique el estado de su suscripción para continuar accediendo a las funciones premium.</string>
     <string name="welcome_text">¡Bienvenido! Tu prueba gratuita de 1 semana de nuestro Servicio de Alerta BeSafe está activa. Descubre todas las funciones premium, incluyendo el envío de alertas de seguridad con la ubicación a tus contactos de emergencia. Después de la prueba, sigue disfrutando del acceso ininterrumpido con nuestro plan de paquete mensual, una suscripción mensual de $3.00, que se renueva automáticamente cada mes.</string>
     <string name="default_web_client_id">663430630406-2jc78k8g7eq128ldm7u5ngg70vu0md1p.apps.googleusercontent.com</string>
 </resources>

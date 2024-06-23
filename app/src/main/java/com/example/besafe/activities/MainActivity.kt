@@ -47,6 +47,7 @@ import com.google.android.gms.tasks.Task
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import android.provider.Settings
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 
 class MainActivity : AppCompatActivity() {
 
@@ -447,5 +448,32 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+    }
+
+    private fun notSubscribeDialog() {
+        // Inflate the custom layout
+        val dialogView = layoutInflater.inflate(R.layout.layout_not_subscribe, null)
+
+        // Create the alert dialog
+        val alertDialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .create()
+        alertDialog.setCancelable(true)
+
+        // Get references to the views in the custom layout
+        val btnSubscribe: TextView = dialogView.findViewById(R.id.subscribe)
+        val btnOk: TextView = dialogView.findViewById(R.id.ok)
+
+        // Set up the buttons
+        btnOk.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        btnSubscribe.setOnClickListener {
+            startActivity(Intent(this,SubscriptionActivity::class.java))
+        }
+
+        // Show the dialog
+        alertDialog.show()
     }
 }

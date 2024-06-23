@@ -413,7 +413,8 @@ class ConfigurationActivity : AppCompatActivity() {
         }
 
         btnSubscribe.setOnClickListener {
-
+            startActivity(Intent(this,SubscriptionActivity::class.java))
+            alertDialog.dismiss()
         }
 
         // Show the dialog

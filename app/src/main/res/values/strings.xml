@@ -83,6 +83,7 @@
     <string name="policy">Using SAFE\'s service you agree with <u>Policy</u> and <u>Terms Of Use.</u> </string>
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
     <string name="navigation_drawer_close">Close Navigation Drawer</string>
+    <string name="not_subs">Your subscription is not active. please check your subscription status to continue accessing premium features.</string>
     <string name="welcome_text">Welcome! Your free 1-week trial of our BeSafe Alert Service is active. Discover all the premium features, including sending security alert with your location co-ordinates to your emergency contacts. After the trial,continue enjoy uninterrupted access with our monthly package plan, a monthly subscription of $3.00, which automatically renews each month.</string>
     <string name="default_web_client_id">663430630406-2jc78k8g7eq128ldm7u5ngg70vu0md1p.apps.googleusercontent.com</string>
 </resources>
