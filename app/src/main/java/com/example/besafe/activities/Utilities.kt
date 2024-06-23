@@ -60,7 +60,50 @@ object Utilities {
         })
     }
 
-    fun setSubscriptionStatus(isSubscribed: Boolean = false, data: QueryPurchaseResponse?) {
-        subStatus = isSubscribed
+    fun setSubscriptionStatus(isSubscribed: Boolean = false, data: QueryPurchaseResponse?,database: DatabaseReference,userId:String) {
+        val userRef = database.child("user_test").child(userId)
+        val updates = hashMapOf<String, Any>("isSubscribe" to isSubscribed)
+        userRef.updateChildren(updates).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // Update successful
+//                Toast.makeText(this, "value updated successfully.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    fun checkTrialPeriod(database: DatabaseReference,userId:String) {
+        database.child("user_test").child(userId).child("createdAt")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val createdAt = dataSnapshot.getValue(Double::class.java)
+                    createdAt?.let {
+                        val currentTime = System.currentTimeMillis().toDouble()
+                        val oneWeekMillis = 7 * 24 * 60 * 60 * 1000
+                        if (currentTime - createdAt > oneWeekMillis) {
+                            Constants.freeTrial=false
+                        }
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle possible errors.
+                }
+            })
+    }
+
+    fun checkSubscription(database: DatabaseReference,userId:String) {
+        database.child("user_test").child(userId).child("isSubscribe")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val v = dataSnapshot.getValue(Boolean::class.java)
+                    v?.let {
+                        subStatus = v
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle possible errors.
+                }
+            })
     }
 }

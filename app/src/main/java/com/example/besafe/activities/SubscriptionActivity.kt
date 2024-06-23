@@ -11,18 +11,24 @@ import com.android.billingclient.api.BillingFlowParams.ProductDetailsParams
 import com.example.besafe.activities.Constants.Companion.subscriptionId
 import com.example.besafe.activities.Utilities.setSubscriptionStatus
 import com.example.besafe.databinding.ActivitySubscriptionBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 
 class SubscriptionActivity : AppCompatActivity() {
 
     private var billingClient: BillingClient? = null
     lateinit var binding: ActivitySubscriptionBinding
+    private lateinit var auth: FirebaseAuth
+    private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivitySubscriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance().reference
         ///////// This method is for getting subscription status, move this whole code to where you need this (bitch) //////
         getPurchaseDetail()
 
@@ -289,10 +295,10 @@ class SubscriptionActivity : AppCompatActivity() {
                     handlePurchaseDetails(purchases)
                 }
                 else {
-                    setSubscriptionStatus(false, null)
+                    auth.currentUser?.let { setSubscriptionStatus(false, null,database, it.uid) }
                 }
             } else {
-                setSubscriptionStatus(false, null)
+                auth.currentUser?.let { setSubscriptionStatus(false, null,database, it.uid) }
                 Log.e(
                     "Billing",
                     "Error querying purchases: " + billingResult.debugMessage
@@ -308,7 +314,7 @@ class SubscriptionActivity : AppCompatActivity() {
             }
         } else {
             Log.d("Subscription Details", "No Active Subscription were found")
-            setSubscriptionStatus(false, null)
+            auth.currentUser?.let { setSubscriptionStatus(false, null,database, it.uid) }
         }
     }
 
@@ -320,18 +326,18 @@ class SubscriptionActivity : AppCompatActivity() {
             )
             if (response.productId.equals(subscriptionId)) {
                 if(response.autoRenewing == true) {
-                    setSubscriptionStatus(true, response)
+                    auth.currentUser?.let { setSubscriptionStatus(true, response,database, it.uid) }
                 }
                 else {
-                    setSubscriptionStatus(false, response)
+                    auth.currentUser?.let { setSubscriptionStatus(false, response,database, it.uid) }
                 }
             }
             else {
-                setSubscriptionStatus(false, response)
+                auth.currentUser?.let { setSubscriptionStatus(false, response,database, it.uid) }
             }
             Log.d("Subscription Details", purchase.originalJson)
         } else {
-            setSubscriptionStatus(false, null)
+            auth.currentUser?.let { setSubscriptionStatus(false, null,database, it.uid) }
             purchase?.let { Log.d("Subscription Details (${purchase.purchaseState})", it.originalJson) }
         }
     }

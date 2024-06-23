@@ -74,6 +74,8 @@ class MainActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance().reference
         sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
         allowLocation = sharedPreferences.getBoolean("allow_location",false)
+        auth.currentUser?.let { Utilities.checkTrialPeriod(database, it.uid) }
+        auth.currentUser?.let { Utilities.checkSubscription(database, it.uid) }
         setViews()
         val user = auth.currentUser
         user?.let { getUserData(it) }
@@ -138,6 +140,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.circleTextView.setOnLongClickListener {
+            if(Constants.freeTrial || Constants.subStatus){
             activated= !activated
             val drawable = binding.circleTextView.background as GradientDrawable
             if (activated){
@@ -160,6 +163,9 @@ class MainActivity : AppCompatActivity() {
                 binding.otpLayout.visibility=View.GONE
                 binding.pinLayout.visibility=View.GONE
                 drawable.setColor(ContextCompat.getColor(this, android.R.color.white))
+            }
+            }else{
+                notSubscribeDialog()
             }
             true
         }
@@ -471,6 +477,7 @@ class MainActivity : AppCompatActivity() {
 
         btnSubscribe.setOnClickListener {
             startActivity(Intent(this,SubscriptionActivity::class.java))
+            alertDialog.dismiss()
         }
 
         // Show the dialog

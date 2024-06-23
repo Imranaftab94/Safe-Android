@@ -197,7 +197,8 @@ class LoginActivity : AppCompatActivity() {
             secondFriendPhoneNumber = "",
             thirdFriendPhoneNumber = "",
             userDescription = "",
-            userId = auth.currentUser?.uid ?: ""
+            userId = auth.currentUser?.uid ?: "",
+            isSubscribe = false
         )
         database.child("user_test").child(userId).setValue(user)
             .addOnCompleteListener { task ->

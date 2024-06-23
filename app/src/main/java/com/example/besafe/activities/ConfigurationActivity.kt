@@ -95,7 +95,8 @@ class ConfigurationActivity : AppCompatActivity() {
             binding.layoutFourthFriend.visibility=View.VISIBLE
             binding.circleTextView.visibility=View.VISIBLE
             binding.nextButton.text=getString(R.string.confirm)
-
+            auth.currentUser?.let { Utilities.checkTrialPeriod(database, it.uid) }
+            auth.currentUser?.let { Utilities.checkSubscription(database, it.uid) }
             showCustomAlertDialog()
 
             binding.edUsername.setText(user.name)
@@ -264,18 +265,21 @@ class ConfigurationActivity : AppCompatActivity() {
         })
 
         binding.circleTextView.setOnLongClickListener {
-            activated= !activated
-            val drawable = binding.circleTextView.background as GradientDrawable
-            if (activated){
-                binding.circleTextView.text=getString(R.string.activated)
-                binding.circleTextView.setTextColor(Color.parseColor("#ffffff"));
-                drawable.setColor(ContextCompat.getColor(this, android.R.color.holo_red_light))
-                showTestingAlertDialog()
+            if(Constants.freeTrial || Constants.subStatus){
+                activated= !activated
+                val drawable = binding.circleTextView.background as GradientDrawable
+                if (activated){
+                    binding.circleTextView.text=getString(R.string.activated)
+                    binding.circleTextView.setTextColor(Color.parseColor("#ffffff"));
+                    drawable.setColor(ContextCompat.getColor(this, android.R.color.holo_red_light))
+                    showTestingAlertDialog()
+                }else{
+                    binding.circleTextView.text=getString(R.string.hold)
+                    binding.circleTextView.setTextColor(Color.parseColor("#000000"));
+                    drawable.setColor(ContextCompat.getColor(this, android.R.color.white))
+                }
             }else{
-                binding.circleTextView.text=getString(R.string.hold)
-                binding.circleTextView.setTextColor(Color.parseColor("#000000"));
-                drawable.setColor(ContextCompat.getColor(this, android.R.color.white))
-
+               notSubscribeDialog()
             }
 
             true
@@ -571,6 +575,34 @@ class ConfigurationActivity : AppCompatActivity() {
 
     private fun sendMessageWithEmptyLocation() {
         sendMessage("")
+    }
+
+    private fun notSubscribeDialog() {
+        // Inflate the custom layout
+        val dialogView = layoutInflater.inflate(R.layout.layout_not_subscribe, null)
+
+        // Create the alert dialog
+        val alertDialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .create()
+        alertDialog.setCancelable(true)
+
+        // Get references to the views in the custom layout
+        val btnSubscribe: TextView = dialogView.findViewById(R.id.subscribe)
+        val btnOk: TextView = dialogView.findViewById(R.id.ok)
+
+        // Set up the buttons
+        btnOk.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        btnSubscribe.setOnClickListener {
+            startActivity(Intent(this,SubscriptionActivity::class.java))
+            alertDialog.dismiss()
+        }
+
+        // Show the dialog
+        alertDialog.show()
     }
 
     override fun onBackPressed() {

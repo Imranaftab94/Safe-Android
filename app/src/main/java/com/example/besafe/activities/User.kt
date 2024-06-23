@@ -12,5 +12,6 @@ data class User(
     val secondFriendPhoneNumber: String = "",
     val thirdFriendPhoneNumber: String = "",
     val userDescription: String = "",
-    val userId: String = ""
+    val userId: String = "",
+    var isSubscribe:Boolean=false
 )
