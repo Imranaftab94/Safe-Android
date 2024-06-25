@@ -115,7 +115,7 @@ class SplashActivity : AppCompatActivity() {
                     runOnUiThread {
                         Toast.makeText(
                             this@SplashActivity,
-                            "Billing Disconnected",
+                            getString(R.string.bill_disconnected),
                             Toast.LENGTH_SHORT
                         ).show()
                     }
