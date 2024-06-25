@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.billingclient.api.*
 import com.android.billingclient.api.BillingFlowParams.ProductDetailsParams
+import com.example.besafe.R
 import com.example.besafe.activities.Constants.Companion.subscriptionId
 import com.example.besafe.activities.Utilities.setSubscriptionStatus
 import com.example.besafe.databinding.ActivitySubscriptionBinding
@@ -66,7 +67,7 @@ class SubscriptionActivity: AppCompatActivity() {
                         runOnUiThread {
                             Toast.makeText(
                                 this@SubscriptionActivity,
-                                "Billing Disconnected",
+                                getString(R.string.bill_disconnected),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -102,7 +103,7 @@ class SubscriptionActivity: AppCompatActivity() {
                         runOnUiThread {
                             Toast.makeText(
                                 this@SubscriptionActivity,
-                                "Product is not available on App Store",
+                                getString(R.string.pro_store),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -277,7 +278,7 @@ class SubscriptionActivity: AppCompatActivity() {
                     runOnUiThread {
                         Toast.makeText(
                             this@SubscriptionActivity,
-                            "Billing Disconnected",
+                            getString(R.string.bill_disconnected),
                             Toast.LENGTH_SHORT
                         ).show()
                     }

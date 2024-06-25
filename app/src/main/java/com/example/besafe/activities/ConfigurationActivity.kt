@@ -466,7 +466,7 @@ class ConfigurationActivity : AppCompatActivity() {
                 binding.circleTextView.setTextColor(Color.parseColor("#000000"));
                 val drawable = binding.circleTextView.background as GradientDrawable
                 drawable.setColor(ContextCompat.getColor(this@ConfigurationActivity, android.R.color.white))
-                alertDialogMessage(this@ConfigurationActivity,"Test Alert Message Cancelled Successfully")
+                alertDialogMessage(this@ConfigurationActivity,getString(R.string.msg_cancel))
                 alertDialog.dismiss()
             } else {
                 etPin.error = getString(R.string.invalid_pin)

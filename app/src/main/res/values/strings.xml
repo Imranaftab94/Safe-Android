@@ -72,6 +72,10 @@
     <string name="allow_location">Allow Location</string>
     <string name="confirm_pass">Confirm Password</string>
     <string name="confirm">Confirm</string>
+    <string name="pro_store">Product is not available on App Store</string>
+    <string name="bill_disconnected">Billing Disconnected</string>
+    <string name="msg_cancel">Test Alert Message Cancelled Successfully</string>
+    <string name="confirm_delete">Are you sure you want to delete this profile?</string>
     <string name="password">Password</string>
     <string name="remember_me">Remember Me</string>
     <string name="forgot">Forgot Password</string>

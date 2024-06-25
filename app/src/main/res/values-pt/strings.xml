@@ -73,6 +73,10 @@
     <string name="allow_location">Permitir Localização</string>
     <string name="confirm_pass">Confirmar Senha</string>
     <string name="confirm">Confirmar</string>
+    <string name="pro_store">O produto não está disponível na App Store</string>
+    <string name="bill_disconnected">Faturamento desconectado</string>
+    <string name="msg_cancel">Mensagem de alerta de teste cancelada com sucesso</string>
+    <string name="confirm_delete">Tem certeza de que deseja excluir este perfil?</string>
     <string name="password">Senha</string>
     <string name="remember_me">Lembrar de Mim</string>
     <string name="forgot">Esqueceu a Senha</string>

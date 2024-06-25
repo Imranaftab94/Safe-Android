@@ -45,7 +45,7 @@
                 android:id="@+id/logo"
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/_120sdp"
-                android:src="@drawable/logo"
+                android:src="@drawable/logo_safe"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_gravity="center"/>
 

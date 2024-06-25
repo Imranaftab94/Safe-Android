@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_delete -> {
-                    deleteUserAccount()
+                    deleteDialog()
                     true
                 }
                 R.id.nav_logout ->{
@@ -246,6 +246,27 @@ class MainActivity : AppCompatActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()
+    }
+
+    private fun deleteDialog(){
+        val builder1 = AlertDialog.Builder(this)
+        builder1.setTitle(getString(R.string.alert))
+        builder1.setMessage(getString(R.string.confirm_delete))
+        builder1.setCancelable(false)
+
+        builder1.setPositiveButton(
+            getString(R.string.ok)
+        ) { dialog, id ->
+            deleteUserAccount()
+            dialog.cancel()
+        }
+
+        builder1.setNegativeButton(
+            getString(R.string.cancel)
+        ) { dialog, id -> dialog.cancel() }
+
+        val alert11 = builder1.create()
+        alert11.show()
     }
 
     private fun deleteUserAccount() {
