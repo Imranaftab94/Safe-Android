@@ -11,6 +11,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.content.pm.PackageManager
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -46,6 +47,7 @@ import com.google.android.gms.location.LocationSettingsResponse
 import com.google.android.gms.tasks.Task
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import android.provider.Settings
+import android.view.MotionEvent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 
@@ -61,11 +63,13 @@ class MainActivity : AppCompatActivity() {
     lateinit var sharedPreferences: SharedPreferences
     private lateinit var googleSignInClient: GoogleSignInClient
     var allowLocation=false
+    private var isLongClick = false
     private val locationRequest = LocationRequest.Builder(
         LocationRequest.PRIORITY_HIGH_ACCURACY,
         1000L
     ).build()
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -139,39 +143,75 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+//        binding.circleTextView.setOnLongClickListener {
+//            if(Constants.freeTrial || Constants.subStatus){
+//            activated= !activated
+//            val drawable = binding.circleTextView.background as GradientDrawable
+//            if (activated){
+//                binding.txtDescription.text= getString(R.string.pin_safe)
+//                binding.circleTextView.text=getString(R.string.activated)
+//                binding.circleTextView.setTextColor(Color.parseColor("#ffffff"));
+//                binding.txtO.visibility=View.VISIBLE
+//                binding.otpLayout.visibility=View.VISIBLE
+//                binding.pinLayout.visibility=View.VISIBLE
+//                binding.etDigit1.requestFocus()
+//                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//                imm.showSoftInput(binding.etDigit1, InputMethodManager.SHOW_IMPLICIT)
+//                startCountdownTimer()
+//                drawable.setColor(ContextCompat.getColor(this, android.R.color.holo_red_light))
+//            }else{
+//                binding.txtDescription.text=getString(R.string.release_des)
+//                binding.circleTextView.text=getString(R.string.hold)
+//                binding.circleTextView.setTextColor(Color.parseColor("#000000"));
+//                binding.txtO.visibility=View.GONE
+//                binding.otpLayout.visibility=View.GONE
+//                binding.pinLayout.visibility=View.GONE
+//                drawable.setColor(ContextCompat.getColor(this, android.R.color.white))
+//            }
+//            }else{
+//                notSubscribeDialog()
+//            }
+//            true
+//        }
+
         binding.circleTextView.setOnLongClickListener {
             if(Constants.freeTrial || Constants.subStatus){
-            activated= !activated
-            val drawable = binding.circleTextView.background as GradientDrawable
-            if (activated){
-                binding.txtDescription.text= getString(R.string.pin_safe)
+                isLongClick = true
                 binding.circleTextView.text=getString(R.string.activated)
-                binding.circleTextView.setTextColor(Color.parseColor("#ffffff"));
-                binding.txtO.visibility=View.VISIBLE
-                binding.otpLayout.visibility=View.VISIBLE
-                binding.pinLayout.visibility=View.VISIBLE
-                binding.etDigit1.requestFocus()
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.showSoftInput(binding.etDigit1, InputMethodManager.SHOW_IMPLICIT)
-                startCountdownTimer()
+                binding.circleTextView.setTextColor(Color.parseColor("#ffffff"))
+                val drawable = binding.circleTextView.background as GradientDrawable
                 drawable.setColor(ContextCompat.getColor(this, android.R.color.holo_red_light))
-            }else{
-                binding.txtDescription.text=getString(R.string.release_des)
-                binding.circleTextView.text=getString(R.string.hold)
-                binding.circleTextView.setTextColor(Color.parseColor("#000000"));
-                binding.txtO.visibility=View.GONE
-                binding.otpLayout.visibility=View.GONE
-                binding.pinLayout.visibility=View.GONE
-                drawable.setColor(ContextCompat.getColor(this, android.R.color.white))
-            }
             }else{
                 notSubscribeDialog()
             }
-            true
+            true // Return true to indicate that the event is consumed
+        }
+
+        binding.circleTextView.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_UP -> {
+                    if(Constants.freeTrial || Constants.subStatus){
+                        if (isLongClick) {
+                            binding.txtDescription.text= getString(R.string.pin_safe)
+                            binding.txtO.visibility=View.VISIBLE
+                            binding.otpLayout.visibility=View.VISIBLE
+                            binding.pinLayout.visibility=View.VISIBLE
+                            binding.etDigit1.requestFocus()
+                            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                            imm.showSoftInput(binding.etDigit1, InputMethodManager.SHOW_IMPLICIT)
+                            startCountdownTimer()
+                            isLongClick = false
+                        }
+                    }
+                    true
+                }
+                else -> false
+            }
         }
     }
 
     private fun setViews() {
+        Utilities.hideKeyboard(this)
         binding.circleTextView.isEnabled=true
         binding.txtDescription.text=getString(R.string.release_des)
         binding.circleTextView.text=getString(R.string.hold)

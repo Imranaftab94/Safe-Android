@@ -11,6 +11,7 @@ import android.graphics.drawable.GradientDrawable
 import android.location.Location
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
@@ -47,6 +48,7 @@ class ConfigurationActivity : AppCompatActivity() {
     var fromLogin=false
     var configDone=false
     var count=1
+    private var isLongClick = false
     lateinit var sharedPreferences:SharedPreferences
     private lateinit var googleSignInClient: GoogleSignInClient
     var activated:Boolean=false
@@ -54,6 +56,7 @@ class ConfigurationActivity : AppCompatActivity() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     var time:Long=11000
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityConfigurationBinding.inflate(layoutInflater)
@@ -263,10 +266,11 @@ class ConfigurationActivity : AppCompatActivity() {
                 activated= !activated
                 val drawable = binding.circleTextView.background as GradientDrawable
                 if (activated){
+                    isLongClick = true
                     binding.circleTextView.text=getString(R.string.activated)
                     binding.circleTextView.setTextColor(Color.parseColor("#ffffff"));
                     drawable.setColor(ContextCompat.getColor(this, android.R.color.holo_red_light))
-                    showTestingAlertDialog()
+//                    showTestingAlertDialog()
                 }else{
                     binding.circleTextView.text=getString(R.string.hold)
                     binding.circleTextView.setTextColor(Color.parseColor("#000000"));
@@ -277,6 +281,21 @@ class ConfigurationActivity : AppCompatActivity() {
             }
 
             true
+        }
+
+        binding.circleTextView.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_UP -> {
+                    if(Constants.freeTrial || Constants.subStatus){
+                        if (isLongClick) {
+                            showTestingAlertDialog()
+                            isLongClick = false
+                        }
+                    }
+                    true
+                }
+                else -> false
+            }
         }
 
     }
@@ -409,11 +428,13 @@ class ConfigurationActivity : AppCompatActivity() {
         // Set up the buttons
         btnOk.setOnClickListener {
             alertDialog.dismiss()
+            startActivity(Intent(this,MainActivity::class.java))
+            finish()
         }
 
         btnSubscribe.setOnClickListener {
             startActivity(Intent(this,SubscriptionActivity::class.java))
-            alertDialog.dismiss()
+//            alertDialog.dismiss()
         }
 
         // Show the dialog

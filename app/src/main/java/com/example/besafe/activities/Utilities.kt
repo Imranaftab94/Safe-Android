@@ -1,6 +1,9 @@
 package com.example.besafe.activities
 
+import android.app.Activity
 import android.content.Context
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.besafe.activities.Constants.Companion.subStatus
@@ -8,8 +11,8 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+
 
 object Utilities {
 
@@ -31,6 +34,17 @@ object Utilities {
 
     fun showToast(message: String,context: Context) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun hideKeyboard(activity: Activity) {
+        val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        //Find the currently focused view, so we can grab the correct window token from it.
+        var view: View? = activity.currentFocus
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = View(activity)
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0)
     }
 
     fun setUserData(user: User){
