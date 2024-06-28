@@ -106,7 +106,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun checkUserInUserTest(user: FirebaseUser) {
         val userId = user.uid
-        database.child("user_test").child(userId).addListenerForSingleValueEvent(object :
+        database.child(Constants.url).child(userId).addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -117,7 +117,7 @@ class LoginActivity : AppCompatActivity() {
                         navigateToMainActivity()
                     }
                 } else {
-//                    Toast.makeText(this@LoginActivity, "User data not found in user_test table", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@LoginActivity, "User data not found in user table", Toast.LENGTH_SHORT).show()
                     Toast.makeText(this@LoginActivity, getString(R.string.some_error), Toast.LENGTH_SHORT).show()
                 }
             }
@@ -200,10 +200,10 @@ class LoginActivity : AppCompatActivity() {
             userId = auth.currentUser?.uid ?: "",
             isSubscribe = false
         )
-        database.child("user_test").child(userId).setValue(user)
+        database.child(Constants.url).child(userId).setValue(user)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-//                    Utilities.showToast("User data inserted into user_test",this)
+//                    Utilities.showToast("User data inserted into user",this)
                     navigateToConfigurationActivity()
                 } else {
                     Toast.makeText(this, "Failed to insert user data: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
@@ -213,7 +213,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkUserIdExists(user: FirebaseUser) {
-        database.child("user_test").child(user.uid).addListenerForSingleValueEvent(object : ValueEventListener {
+        database.child(Constants.url).child(user.uid).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     // User ID exists

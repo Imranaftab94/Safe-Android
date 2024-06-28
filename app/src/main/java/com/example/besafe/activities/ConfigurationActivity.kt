@@ -333,7 +333,7 @@ class ConfigurationActivity : AppCompatActivity() {
         userUpdates["secondFriendPhoneNumber"] = binding.edSecondPn.text.toString()
         userUpdates["pin"] = binding.edPin.text.toString()
 
-        database.child("user_test").child(userId).updateChildren(userUpdates)
+        database.child(Constants.url).child(userId).updateChildren(userUpdates)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Utilities.getUserDB(auth.currentUser!!,this@ConfigurationActivity,database)
@@ -364,7 +364,7 @@ class ConfigurationActivity : AppCompatActivity() {
         }
 
 
-        database.child("user_test").child(userId).updateChildren(userUpdates)
+        database.child(Constants.url).child(userId).updateChildren(userUpdates)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, getString(R.string.data_update), Toast.LENGTH_SHORT).show()

@@ -110,10 +110,10 @@ class SignUpActivity : AppCompatActivity() {
             userId = auth.currentUser?.uid ?: "",
             isSubscribe = false
         )
-        database.child("user_test").child(userId).setValue(user)
+        database.child(Constants.url).child(userId).setValue(user)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-//                    Utilities.showToast("User data inserted into user_test",this)
+//                    Utilities.showToast("User data inserted into user",this)
                 } else {
                     Toast.makeText(this, "Failed to insert user data: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }

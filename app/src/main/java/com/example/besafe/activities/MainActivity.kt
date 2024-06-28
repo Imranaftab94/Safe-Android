@@ -315,7 +315,7 @@ class MainActivity : AppCompatActivity() {
         if (user != null) {
             // Delete user data from Realtime Database
             val userId = user.uid
-            database.child("user_test").child(userId).removeValue().addOnCompleteListener { task ->
+            database.child(Constants.url).child(userId).removeValue().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Delete user authentication record
                     user.delete().addOnCompleteListener { deleteTask ->
@@ -338,7 +338,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getUserData(user: FirebaseUser) {
         val userId = user.uid
-        database.child("user_test").child(userId).addListenerForSingleValueEvent(object :
+        database.child(Constants.url).child(userId).addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -348,7 +348,7 @@ class MainActivity : AppCompatActivity() {
                     val titleTextView: TextView = h.findViewById(R.id.tvUserName)
                     titleTextView.setText(userData?.name ?:"")
                 } else {
-//                    Toast.makeText(this@MainActivity, "User data not found in user_test table", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@MainActivity, "User data not found in user table", Toast.LENGTH_SHORT).show()
                     Toast.makeText(this@MainActivity, getString(R.string.some_error), Toast.LENGTH_SHORT).show()
                 }
             }

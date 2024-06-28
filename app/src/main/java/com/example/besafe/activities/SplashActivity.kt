@@ -57,7 +57,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun checkUserInUserTest(user: FirebaseUser) {
         val userId = user.uid
-        database.child("user_test").child(userId).addListenerForSingleValueEvent(object :
+        database.child(Constants.url).child(userId).addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -68,7 +68,7 @@ class SplashActivity : AppCompatActivity() {
                         navigateToMainActivity()
                     }
                 } else {
-//                    Toast.makeText(this@LoginActivity, "User data not found in user_test table", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@LoginActivity, "User data not found in user table", Toast.LENGTH_SHORT).show()
                     Toast.makeText(this@SplashActivity, getString(R.string.some_error), Toast.LENGTH_SHORT).show()
                 }
             }

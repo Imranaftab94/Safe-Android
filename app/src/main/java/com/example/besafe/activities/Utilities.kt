@@ -57,14 +57,14 @@ object Utilities {
 
     fun getUserDB(user: FirebaseUser,context: Context,database:DatabaseReference) {
         val userId = user.uid
-        database.child("user_test").child(userId).addListenerForSingleValueEvent(object :
+        database.child(Constants.url).child(userId).addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
                     val userData = dataSnapshot.getValue(User::class.java)
                     userData?.let { setUserData(it) }
                 } else {
-//                    Toast.makeText(this@MainActivity, "User data not found in user_test table", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this@MainActivity, "User data not found in user table", Toast.LENGTH_SHORT).show()
                     Toast.makeText(context, "Some error occurred", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -74,7 +74,7 @@ object Utilities {
         })
     }
     fun setSubscriptionStatus(isSubscribed: Boolean = false, data: QueryPurchaseResponse?, database: DatabaseReference, userId:String) {
-        val userRef = database.child("user_test").child(userId)
+        val userRef = database.child(Constants.url).child(userId)
         val updates = hashMapOf<String, Any>("isSubscribe" to isSubscribed)
         userRef.updateChildren(updates).addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -85,7 +85,7 @@ object Utilities {
     }
 
     fun checkTrialPeriod(database: DatabaseReference,userId:String) {
-        database.child("user_test").child(userId).child("createdAt")
+        database.child(Constants.url).child(userId).child("createdAt")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val createdAt = dataSnapshot.getValue(Double::class.java)
@@ -105,7 +105,7 @@ object Utilities {
     }
 
     fun checkSubscription(database: DatabaseReference,userId:String) {
-        database.child("user_test").child(userId).child("isSubscribe")
+        database.child(Constants.url).child(userId).child("isSubscribe")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val v = dataSnapshot.getValue(Boolean::class.java)
