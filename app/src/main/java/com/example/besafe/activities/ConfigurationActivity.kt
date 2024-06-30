@@ -64,7 +64,7 @@ class ConfigurationActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference
         auth.currentUser?.let { Utilities.checkTrialPeriod(database, it.uid) }
-        auth.currentUser?.let { Utilities.checkSubscription(database, it.uid) }
+//        auth.currentUser?.let { Utilities.checkSubscription(database, it.uid) }
         sharedPreferences = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 

@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference
         auth.currentUser?.let { Utilities.checkTrialPeriod(database, it.uid) }
-        auth.currentUser?.let { Utilities.checkSubscription(database, it.uid) }
+//        auth.currentUser?.let { Utilities.checkSubscription(database, it.uid) }
         sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
         allowLocation = sharedPreferences.getBoolean("allow_location",false)
         setViews()

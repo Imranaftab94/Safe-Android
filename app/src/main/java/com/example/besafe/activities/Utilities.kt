@@ -74,14 +74,15 @@ object Utilities {
         })
     }
     fun setSubscriptionStatus(isSubscribed: Boolean = false, data: QueryPurchaseResponse?, database: DatabaseReference, userId:String) {
-        val userRef = database.child(Constants.url).child(userId)
-        val updates = hashMapOf<String, Any>("isSubscribe" to isSubscribed)
-        userRef.updateChildren(updates).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                // Update successful
-//                Toast.makeText(this, "value updated successfully.", Toast.LENGTH_SHORT).show()
-            }
-        }
+        Constants.subStatus=isSubscribed
+//        val userRef = database.child(Constants.url).child(userId)
+//        val updates = hashMapOf<String, Any>("isSubscribe" to isSubscribed)
+//        userRef.updateChildren(updates).addOnCompleteListener { task ->
+//            if (task.isSuccessful) {
+//                // Update successful
+////                Toast.makeText(this, "value updated successfully.", Toast.LENGTH_SHORT).show()
+//            }
+//        }
     }
 
     fun checkTrialPeriod(database: DatabaseReference,userId:String) {
