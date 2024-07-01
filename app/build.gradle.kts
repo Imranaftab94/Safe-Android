@@ -12,8 +12,8 @@ android {
         applicationId = "com.safe.besafe"
         minSdk = 24
         targetSdk = 34
-        versionCode = 8
-        versionName = "1.8"
+        versionCode = 9
+        versionName = "1.9"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
